@@ -1,4 +1,9 @@
 #include "register_types.h"
+
+#include "mobile_button.h"
+#include "stylebox_mobile_button.h"
+#include "texture_mobile_button.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
@@ -11,7 +16,11 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
-	//GDREGISTER_CLASS(YourClass);
+
+	GDREGISTER_CLASS(MobileButton);
+	GDREGISTER_CLASS(MobileButtonGroup);
+	GDREGISTER_CLASS(StyleboxMobileButton);
+	GDREGISTER_CLASS(TextureMobileButton);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
@@ -23,7 +32,7 @@ void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
 extern "C"
 {
 	// Initialization
-	GDExtensionBool GDE_EXPORT example_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization)
+	GDExtensionBool GDE_EXPORT GodControls_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization)
 	{
 		GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 		init_obj.register_initializer(initialize_gdextension_types);

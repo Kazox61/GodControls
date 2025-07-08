@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://d12hkdwq8nmc1"]
+
+[ext_resource type="Texture2D" uid="uid://dbx66sovxd1" path="res://icon.svg" id="1_cmdug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whxns"]
+bg_color = Color(0.542269, 0.654744, 0.137459, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmdug"]
+bg_color = Color(1, 0.0864962, 0.837166, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yy3l"]
+
+[sub_resource type="MobileButtonGroup" id="MobileButtonGroup_whxns"]
+resource_local_to_scene = false
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StyleboxMobileButton" type="StyleboxMobileButton" parent="."]
+normal = SubResource("StyleBoxFlat_whxns")
+pressed = SubResource("StyleBoxFlat_cmdug")
+disabled = SubResource("StyleBoxFlat_2yy3l")
+toggle_mode = true
+button_group = SubResource("MobileButtonGroup_whxns")
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(200, 200)
+
+[node name="StyleboxMobileButton2" type="StyleboxMobileButton" parent="."]
+normal = SubResource("StyleBoxFlat_whxns")
+pressed = SubResource("StyleBoxFlat_cmdug")
+disabled = SubResource("StyleBoxFlat_2yy3l")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("MobileButtonGroup_whxns")
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 0
+offset_left = 472.0
+offset_top = 5.0
+offset_right = 872.0
+offset_bottom = 405.0
+pivot_offset = Vector2(200, 200)
+
+[node name="TextureMobileButton" type="TextureMobileButton" parent="."]
+normal = ExtResource("1_cmdug")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(20, 20)
