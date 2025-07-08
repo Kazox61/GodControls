@@ -1,5 +1,7 @@
 #include "register_types.h"
 
+#include "full_screen_control.h"
+
 #include "mobile_button.h"
 #include "stylebox_mobile_button.h"
 #include "texture_mobile_button.h"
@@ -21,6 +23,8 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
+
+	GDREGISTER_CLASS(FullScreenControl);
 
 	GDREGISTER_CLASS(MobileButton);
 	GDREGISTER_CLASS(MobileButtonGroup);
