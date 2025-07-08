@@ -4,6 +4,11 @@
 #include "stylebox_mobile_button.h"
 #include "texture_mobile_button.h"
 
+#include "animated_grid_container.h"
+
+#include "safe_area_container.h"
+#include "safe_area_expand.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
@@ -21,6 +26,11 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(MobileButtonGroup);
 	GDREGISTER_CLASS(StyleboxMobileButton);
 	GDREGISTER_CLASS(TextureMobileButton);
+
+	GDREGISTER_CLASS(AnimatedGridContainer);
+
+	GDREGISTER_CLASS(SafeAreaContainer);
+	GDREGISTER_CLASS(SafeAreaExpand);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

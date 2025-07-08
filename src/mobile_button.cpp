@@ -348,55 +348,50 @@ void MobileButton::_process(double p_delta) {
 void MobileButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_touch_disabled", "disabled"), &MobileButton::set_touch_disabled);
 	ClassDB::bind_method(D_METHOD("get_touch_disabled"), &MobileButton::get_touch_disabled);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "touch_disabled"), "set_touch_disabled", "get_touch_disabled");
 
 	ClassDB::bind_method(D_METHOD("set_toggle_mode", "toggle_mode"), &MobileButton::set_toggle_mode);
 	ClassDB::bind_method(D_METHOD("get_toggle_mode"), &MobileButton::get_toggle_mode);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "toggle_mode"), "set_toggle_mode", "get_toggle_mode");
 
 	ClassDB::bind_method(D_METHOD("set_button_pressed", "pressed"), &MobileButton::set_button_pressed);
 	ClassDB::bind_method(D_METHOD("get_button_pressed"), &MobileButton::get_button_pressed);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "button_pressed"), "set_button_pressed", "get_button_pressed");
 
 	ClassDB::bind_method(D_METHOD("set_button_group", "button_group"), &MobileButton::set_button_group);
 	ClassDB::bind_method(D_METHOD("get_button_group"), &MobileButton::get_button_group);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "button_group", PROPERTY_HINT_RESOURCE_TYPE, "MobileButtonGroup"), "set_button_group", "get_button_group");
 
 	ClassDB::bind_method(D_METHOD("set_long_press_enabled", "enabled"), &MobileButton::set_long_press_enabled);
 	ClassDB::bind_method(D_METHOD("get_long_press_enabled"), &MobileButton::get_long_press_enabled);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "long_press_enabled"), "set_long_press_enabled", "get_long_press_enabled");
 
 	ClassDB::bind_method(D_METHOD("set_long_press_activation_time", "time"), &MobileButton::set_long_press_activation_time);
 	ClassDB::bind_method(D_METHOD("get_long_press_activation_time"), &MobileButton::get_long_press_activation_time);
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "long_press_activation_time"), "set_long_press_activation_time", "get_long_press_activation_time");
 
 	ClassDB::bind_method(D_METHOD("set_h_pivot_position", "position"), &MobileButton::set_h_pivot_position);
 	ClassDB::bind_method(D_METHOD("get_h_pivot_position"), &MobileButton::get_h_pivot_position);
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "h_pivot_position", PROPERTY_HINT_ENUM, "Start,Center,End"), "set_h_pivot_position", "get_h_pivot_position");
 
 	ClassDB::bind_method(D_METHOD("set_v_pivot_position", "position"), &MobileButton::set_v_pivot_position);
 	ClassDB::bind_method(D_METHOD("get_v_pivot_position"), &MobileButton::get_v_pivot_position);
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "v_pivot_position", PROPERTY_HINT_ENUM, "Start,Center,End"), "set_v_pivot_position", "get_v_pivot_position");
 
 	ClassDB::bind_method(D_METHOD("set_animated", "animated"), &MobileButton::set_animated);
 	ClassDB::bind_method(D_METHOD("get_animated"), &MobileButton::get_animated);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "animated"), "set_animated", "get_animated");
 
 	ClassDB::bind_method(D_METHOD("set_animation_duration", "animation_duration"), &MobileButton::set_animation_duration);
 	ClassDB::bind_method(D_METHOD("get_animation_duration"), &MobileButton::get_animation_duration);
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "animation_duration"), "set_animation_duration", "get_animation_duration");
 
 	ClassDB::bind_method(D_METHOD("set_button_down_scale", "scale"), &MobileButton::set_button_down_scale);
 	ClassDB::bind_method(D_METHOD("get_button_down_scale"), &MobileButton::get_button_down_scale);
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR2, "button_down_scale"), "set_button_down_scale", "get_button_down_scale");
 
 	ClassDB::bind_method(D_METHOD("set_button_up_scale", "scale"), &MobileButton::set_button_up_scale);
 	ClassDB::bind_method(D_METHOD("get_button_up_scale"), &MobileButton::get_button_up_scale);
-
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "touch_disabled"), "set_touch_disabled", "get_touch_disabled");
-
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "toggle_mode"), "set_toggle_mode", "get_toggle_mode");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "button_pressed"), "set_button_pressed", "get_button_pressed");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "button_group", PROPERTY_HINT_RESOURCE_TYPE, "MobileButtonGroup"), "set_button_group", "get_button_group");
-
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "long_press_enabled"), "set_long_press_enabled", "get_long_press_enabled");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "long_press_activation_time"), "set_long_press_activation_time", "get_long_press_activation_time");
-
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "h_pivot_position", PROPERTY_HINT_ENUM, "Start,Center,End"), "set_h_pivot_position", "get_h_pivot_position");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "v_pivot_position", PROPERTY_HINT_ENUM, "Start,Center,End"), "set_v_pivot_position", "get_v_pivot_position");
-
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "animated"), "set_animated", "get_animated");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "animation_duration"), "set_animation_duration", "get_animation_duration");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR2, "button_down_scale"), "set_button_down_scale", "get_button_down_scale");
 	ADD_PROPERTY(PropertyInfo(Variant::VECTOR2, "button_up_scale"), "set_button_up_scale", "get_button_up_scale");
 
 	ADD_SIGNAL(MethodInfo("touch_down"));
