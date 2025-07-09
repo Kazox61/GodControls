@@ -53,12 +53,9 @@ public:
 	void set_use_first_row_element_width(bool p_use);
 	bool get_use_first_row_element_width() const { return _use_first_row_element_width; }
 
-	void _ready() override;
-
 	Vector2 _get_minimum_size() const override;
 
 	void swap_children(Control *p_child1, Control *p_child2);
-	void update_layout();
 	TypedArray<Control> get_visible_children();
 
 protected:
@@ -72,7 +69,7 @@ private:
 	OrderDirection _order_direction = ORDER_BEGIN;
 	Alignment _horizontal_alignment = ALIGN_CENTER;
 	Alignment _vertical_alignment = ALIGN_CENTER;
-	bool _animate_disabled = true;
+	bool _first_sort_done  = false;
 	bool _animate_child_order_disabled;
 	bool _use_first_row_element_width = false;
 	bool _update_child_order_disabled = false;

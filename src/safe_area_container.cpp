@@ -26,12 +26,13 @@ void SafeAreaContainer::apply_safe_area_margins() {
 	add_theme_constant_override("margin_right", screen_size.x - safe_area.get_end().x);
 }
 
-void SafeAreaContainer::_enter_tree() {
-	call_deferred("configure_full_screen_layout");
-}
-
-void SafeAreaContainer::_ready() {
-	apply_safe_area_margins();
+void SafeAreaContainer::_notification(int p_what) {
+	switch (p_what) {
+		case NOTIFICATION_ENTER_TREE: {
+			call_deferred("configure_full_screen_layout");
+			configure_full_screen_layout();
+		} break;
+	}
 }
 
 void SafeAreaContainer::_bind_methods() {

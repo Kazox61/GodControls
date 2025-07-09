@@ -23,7 +23,6 @@ public:
 protected:
 	static void _bind_methods();
 
-
 private:
 	Ref<StyleBox> normal;
 	Ref<StyleBox> pressed;

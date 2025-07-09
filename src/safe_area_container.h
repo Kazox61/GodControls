@@ -7,12 +7,9 @@ using namespace godot;
 class SafeAreaContainer : public MarginContainer {
 	GDCLASS(SafeAreaContainer, MarginContainer);
 
-public:
-	void _enter_tree() override;
-	void _ready() override;
-
 protected:
 	static void _bind_methods();
+	void _notification(int p_what);
 
 private:
 	void configure_full_screen_layout();

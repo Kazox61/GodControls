@@ -3,10 +3,16 @@
 #include <godot_cpp/classes/display_server.hpp>
 
 void SafeAreaExpand::set_expand_position(ExpandPosition p_expand_position) {
+	if (_expand_position == p_expand_position) {
+		return;
+	}
+
 	_expand_position = p_expand_position;
+
+	update_minimum_size();
 }
 
-void SafeAreaExpand::_ready() {
+Vector2 SafeAreaExpand::_get_minimum_size() const {
 	Rect2i safe_area = DisplayServer::get_singleton()->get_display_safe_area();
 	Vector2i screen_size = DisplayServer::get_singleton()->screen_get_size();
 
@@ -33,7 +39,7 @@ void SafeAreaExpand::_ready() {
 			break;
 	}
 
-	set_custom_minimum_size(size);
+	return size;
 }
 
 void SafeAreaExpand::_bind_methods() {

@@ -8,32 +8,32 @@ using namespace godot;
 
 void AnimatedGridContainer::set_columns(int p_columns) {
 	_columns = p_columns;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_h_separation(int p_separation) {
 	_h_separation = p_separation;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_v_separation(int p_separation) {
 	_v_separation = p_separation;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_order_direction(OrderDirection p_direction) {
 	_order_direction = p_direction;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_horizontal_alignment(Alignment p_alignment) {
 	_horizontal_alignment = p_alignment;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_vertical_alignment(Alignment p_alignment) {
 	_vertical_alignment = p_alignment;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::set_animate_child_order_disabled(bool p_disabled) {
@@ -42,7 +42,7 @@ void AnimatedGridContainer::set_animate_child_order_disabled(bool p_disabled) {
 
 void AnimatedGridContainer::set_use_first_row_element_width(bool p_use) {
 	_use_first_row_element_width = p_use;
-	update_layout();
+	queue_sort();
 }
 
 void AnimatedGridContainer::swap_children(Control *p_child1, Control *p_child2) {
@@ -59,28 +59,7 @@ void AnimatedGridContainer::swap_children(Control *p_child1, Control *p_child2) 
 	move_child(p_child2, index1);
 
 	_update_child_order_disabled = false;
-	update_layout();
-}
-
-void AnimatedGridContainer::update_layout() {
-	_minimum_size = get_container_size();
-	set_custom_minimum_size(_minimum_size);
-
-	int visible_count = get_visible_children_count();
-	int rows = Math::ceil(visible_count / float(_columns));
-	float start_y = get_start_y(_minimum_size.y, get_size().y);
-
-	for (int i = 0; i < rows; i++) {
-		if (i != 0) {
-			start_y += _v_separation;
-		}
-
-		int row_start_index = i * _columns;
-		update_row(row_start_index, start_y, get_size().x);
-
-		float max_height = get_max_height_row(row_start_index);
-		start_y += max_height;
-	}
+	queue_sort();
 }
 
 TypedArray<Control> AnimatedGridContainer::get_visible_children() {
@@ -186,7 +165,7 @@ void AnimatedGridContainer::update_row(int p_row_start_index, float p_row_start_
 
 		Vector2 position = Vector2(start_x, p_row_start_y);
 
-		if (!_animate_disabled && !_animate_child_order_disabled && !Engine::get_singleton()->is_editor_hint()) {
+		if (_first_sort_done && !_animate_child_order_disabled) {
 			animate_position_change(child, position);
 		} 
 		else {
@@ -305,35 +284,45 @@ AnimatedGridContainer::AnimatedGridContainer() {
 	_order_direction = ORDER_BEGIN;
 	_horizontal_alignment = ALIGN_CENTER;
 	_vertical_alignment = ALIGN_CENTER;
-	_animate_disabled = true;
-	_use_first_row_element_width = false;
-	_update_child_order_disabled = false;
-	_minimum_size = Vector2();
 }
 
 AnimatedGridContainer::~AnimatedGridContainer() {
 	cancel_all_animations();
 }
 
-void AnimatedGridContainer::_ready() {
-	update_layout();
-	_animate_disabled = false;
-}
-
 void AnimatedGridContainer::_notification(int p_what) {
-	if (_update_child_order_disabled) {
-		return;
+	switch (p_what) {
+		case NOTIFICATION_SORT_CHILDREN: {
+			if (_update_child_order_disabled) {
+				break;
+			}
+
+			emit_signal("on_child_order_changed");
+
+			cancel_all_animations();
+
+			_minimum_size = get_container_size();
+			set_custom_minimum_size(_minimum_size);
+
+			int visible_count = get_visible_children_count();
+			int rows = Math::ceil(visible_count / float(_columns));
+			float start_y = get_start_y(_minimum_size.y, get_size().y);
+
+			for (int i = 0; i < rows; i++) {
+				if (i != 0) {
+					start_y += _v_separation;
+				}
+
+				int row_start_index = i * _columns;
+				update_row(row_start_index, start_y, get_size().x);
+
+				float max_height = get_max_height_row(row_start_index);
+				start_y += max_height;
+			}
+
+			_first_sort_done = true;
+		} break;
 	}
-
-	if (p_what != NOTIFICATION_SORT_CHILDREN && p_what != NOTIFICATION_CHILD_ORDER_CHANGED) {
-		return;
-	}
-
-	emit_signal("on_child_order_changed");
-
-	cancel_all_animations();
-
-	update_layout();
 }
 
 Vector2 AnimatedGridContainer::_get_minimum_size() const {
@@ -374,7 +363,6 @@ void AnimatedGridContainer::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_first_row_element_width"), "set_use_first_row_element_width", "get_use_first_row_element_width");
 
 	ClassDB::bind_method(D_METHOD("swap_children", "child1", "child2"), &AnimatedGridContainer::swap_children);
-	ClassDB::bind_method(D_METHOD("update_layout"), &AnimatedGridContainer::update_layout);
 	ClassDB::bind_method(D_METHOD("get_visible_children"), &AnimatedGridContainer::get_visible_children);
 
 	ADD_SIGNAL(MethodInfo("on_child_order_changed"));

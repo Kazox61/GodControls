@@ -8,8 +8,9 @@ class FullScreenControl : public Control {
 	GDCLASS(FullScreenControl, Control);
 
 public:
-	void _ready() override;
+	Size2 _get_minimum_size() const override;
 
 protected:
 	static void _bind_methods();
+	void _notification(int p_what);
 };

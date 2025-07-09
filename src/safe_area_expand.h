@@ -18,7 +18,7 @@ public:
 	void set_expand_position(ExpandPosition p_expand_position);
 	ExpandPosition get_expand_position() const { return _expand_position; }
 
-	void _ready() override;
+	Vector2 _get_minimum_size() const override;
 
 protected:
 	static void _bind_methods();

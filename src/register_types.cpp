@@ -8,6 +8,9 @@
 
 #include "animated_grid_container.h"
 
+#include "mobile_scroll_container.h"
+#include "item_mobile_scroll_container.h"
+
 #include "safe_area_container.h"
 #include "safe_area_expand.h"
 
@@ -32,6 +35,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(TextureMobileButton);
 
 	GDREGISTER_CLASS(AnimatedGridContainer);
+
+	GDREGISTER_CLASS(MobileScrollContainer);
+	GDREGISTER_CLASS(ItemMobileScrollContainer);
 
 	GDREGISTER_CLASS(SafeAreaContainer);
 	GDREGISTER_CLASS(SafeAreaExpand);

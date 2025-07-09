@@ -5,25 +5,19 @@
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/project_settings.hpp>
 
-
-void FullScreenControl::_ready() {
+Vector2 FullScreenControl::_get_minimum_size() const {
 	if (!is_inside_tree()) {
-		return;
+		return Vector2();
 	}
 
 	SceneTree *tree = get_tree();
 	
 	Window *window = tree->get_root();
 
-	if (window == nullptr) {
-		return;
-	}
-
-	if (Engine::get_singleton()->is_editor_hint()) {
+	if (!window || Engine::get_singleton()->is_editor_hint()) {
 		int width = ProjectSettings::get_singleton()->get_setting("display/window/size/viewport_width");
 		int height = ProjectSettings::get_singleton()->get_setting("display/window/size/viewport_height");
-		set_custom_minimum_size(Vector2(width, height));
-		return;
+		return Vector2(width, height);
 	}
 
 	Vector2 aspect_size = window->get_size();
@@ -43,7 +37,13 @@ void FullScreenControl::_ready() {
 		minimum_size.y = desired_res.x / aspect_ratio;
 	}
 
-	set_custom_minimum_size(minimum_size);
+	return minimum_size;
+}
+
+void FullScreenControl::_notification(int p_what) {
+	if (p_what == NOTIFICATION_READY) {
+		update_minimum_size();
+	}
 }
 
 void FullScreenControl::_bind_methods() {

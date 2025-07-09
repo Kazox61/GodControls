@@ -75,14 +75,14 @@ Ref<StyleBox> StyleboxMobileButton::get_disabled() const {
 void StyleboxMobileButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_normal", "normal"), &StyleboxMobileButton::set_normal);
 	ClassDB::bind_method(D_METHOD("get_normal"), &StyleboxMobileButton::get_normal);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "normal", PROPERTY_HINT_RESOURCE_TYPE, "StyleBox"), "set_normal", "get_normal");
 
 	ClassDB::bind_method(D_METHOD("set_pressed", "pressed"), &StyleboxMobileButton::set_pressed);
 	ClassDB::bind_method(D_METHOD("get_pressed"), &StyleboxMobileButton::get_pressed);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "pressed", PROPERTY_HINT_RESOURCE_TYPE, "StyleBox"), "set_pressed", "get_pressed");
 
 	ClassDB::bind_method(D_METHOD("set_disabled", "disabled"), &StyleboxMobileButton::set_disabled);
 	ClassDB::bind_method(D_METHOD("get_disabled"), &StyleboxMobileButton::get_disabled);
-
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "normal", PROPERTY_HINT_RESOURCE_TYPE, "StyleBox"), "set_normal", "get_normal");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "pressed", PROPERTY_HINT_RESOURCE_TYPE, "StyleBox"), "set_pressed", "get_pressed");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "disabled", PROPERTY_HINT_RESOURCE_TYPE, "StyleBox"), "set_disabled", "get_disabled");
+
 }

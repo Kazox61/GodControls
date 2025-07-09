@@ -74,14 +74,13 @@ Ref<Texture2D> TextureMobileButton::get_disabled() const {
 void TextureMobileButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_normal", "normal"), &TextureMobileButton::set_normal);
 	ClassDB::bind_method(D_METHOD("get_normal"), &TextureMobileButton::get_normal);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "normal", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_normal", "get_normal");
 
 	ClassDB::bind_method(D_METHOD("set_pressed", "pressed"), &TextureMobileButton::set_pressed);
 	ClassDB::bind_method(D_METHOD("get_pressed"), &TextureMobileButton::get_pressed);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "pressed", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_pressed", "get_pressed");
 
 	ClassDB::bind_method(D_METHOD("set_disabled", "disabled"), &TextureMobileButton::set_disabled);
 	ClassDB::bind_method(D_METHOD("get_disabled"), &TextureMobileButton::get_disabled);
-
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "normal", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_normal", "get_normal");
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "pressed", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_pressed", "get_pressed");
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "disabled", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_disabled", "get_disabled");
 }
